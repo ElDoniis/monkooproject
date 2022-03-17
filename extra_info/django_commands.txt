@@ -1,0 +1,13 @@
+- python manage.py runserver | Iniciar el servidor
+
+- python manage.py startapp (nombre de la app) | Crear app
+
+- python manage.py showmigrations | Muestra todas las migraciones pendientes
+
+- python manage.py migrate | Realiza las migraciones
+
+- python manage.py makemigrations | Crea archivo que contiene la migraciones
+
+- python manage.py sqlmigrate (nombre de la app) (archivo) | Genera el codigo sql a migrar
+
+- python manage.py createsuperuser | Crear usuario para admin panel
