@@ -1,7 +1,4 @@
 # -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
 
 import os
 from decouple import config
@@ -72,8 +69,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'monkoo_users',
+        'USER': 'postgres',
+        'PASSWORD': 'canela400',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
