@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CalendarMonkooConfig(AppConfig):
+class MonkooCalendarConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'calendar_monkoo'
+    name = 'monkoo_calendar'

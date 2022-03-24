@@ -31,7 +31,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Calendar</h1>
+            <h1> Calendar </h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -107,7 +107,8 @@
             <div class="card card-primary">
               <div class="card-body p-0">
                 <!-- THE CALENDAR -->
-                <div id="calendar"></div>
+                <div id="calendar">
+                </div>
               </div>
               <!-- /.card-body -->
             </div>
@@ -176,7 +177,7 @@
 
       /* initialize the calendar
       -----------------------------------------------------------------*/
-      //Date for the calendar events (dummy data)
+      // Date for the calendar events (dummy data)
       var date = new Date()
       var d    = date.getDate(),
           m    = date.getMonth(),
@@ -187,10 +188,57 @@
 
       var containerEl = document.getElementById('external-events');
       var checkbox = document.getElementById('drop-remove');
-      var calendarEl = document.getElementById('calendar');
 
       // initialize the external events
       // -----------------------------------------------------------------
+
+      // AQUIIII
+      var calendarEl = document.getElementById('calendar');
+
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+          plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid' ],
+          header    : {
+            left  : 'prev,next today',
+            center: 'title',
+            right : 'dayGridMonth,timeGridWeek,timeGridDay'
+          },
+          'themeSystem': 'bootstrap',
+          events: [
+            //{% for evento in object_list  %}
+              {
+                title          : "{{ evento.even_id }}",
+                start          : '{{ evento.start_date | date:"y-m-d"}}',
+                end            : '{{ evento.start_end | date:"y-m-d"}}',
+                backgroundColor: "{{ evento.background_color }}", 
+                borderColor    : "{{ evento.border_color }}"
+              },
+            //{% endfor %}
+          ],
+
+        /* events    : [  
+          {
+            title          : 'Click for Google',
+            start          : new Date(y, m, 28),
+            end            : new Date(y, m, 29),
+            url            : 'https://www.google.com/',
+            backgroundColor: '#3c8dbc', //Primary (light-blue)
+            borderColor    : '#3c8dbc' //Primary (light-blue)
+          }
+        
+        ], */
+
+        editable  : true,
+        droppable : true, // this allows things to be dropped onto the calendar !!!
+        
+        drop      : function(info) {
+          // is the "remove after drop" checkbox checked?
+          if (checkbox.checked) {
+            // if so, remove the element from the "Draggable Events" list
+            info.draggedEl.parentNode.removeChild(info.draggedEl);
+          }
+          
+        }
+      });
 
       new Draggable(containerEl, {
         itemSelector: '.external-event',
@@ -202,36 +250,6 @@
             borderColor: window.getComputedStyle( eventEl ,null).getPropertyValue('background-color'),
             textColor: window.getComputedStyle( eventEl ,null).getPropertyValue('color'),
           };
-        }
-      });
-
-      var calendar = new Calendar(calendarEl, {
-        plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid' ],
-        header    : {
-          left  : 'prev,next today',
-          center: 'title',
-          right : 'dayGridMonth,timeGridWeek,timeGridDay'
-        },
-        'themeSystem': 'bootstrap',
-        //Random default events
-        events    : [
-          {
-            title          : 'Click for Google',
-            start          : new Date(y, m, 28),
-            end            : new Date(y, m, 29),
-            url            : 'https://www.google.com/',
-            backgroundColor: '#3c8dbc', //Primary (light-blue)
-            borderColor    : '#3c8dbc' //Primary (light-blue)
-          }
-        ],
-        editable  : true,
-        droppable : true, // this allows things to be dropped onto the calendar !!!
-        drop      : function(info) {
-          // is the "remove after drop" checkbox checked?
-          if (checkbox.checked) {
-            // if so, remove the element from the "Draggable Events" list
-            info.draggedEl.parentNode.removeChild(info.draggedEl);
-          }
         }
       });
 
