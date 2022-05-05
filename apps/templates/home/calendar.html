@@ -50,12 +50,12 @@
                 <div class="card-body">
                   <!-- the events -->
                   <div id="external-events">
-                    <div class="external-event bg-gray d-flex justify-content-between"><div>Wake up</div><div><button class= "btn opacity-0">🗑</button></div></div>
-                    <div class="external-event bg-success d-flex justify-content-between"><div>Luch</div><div><button class= "btn opacity-0">🗑</button></div></div>
-                    <div class="external-event bg-warning d-flex justify-content-between"><div>Go home</div><div><button class= "btn opacity-0">🗑</button></div></div>
-                    <div class="external-event bg-info d-flex justify-content-between"><div>Travel time</div><div><button class= "btn opacity-0">🗑</button></div></div>
-                    <div class="external-event bg-primary d-flex justify-content-between"><div>Go outside</div><div><button class= "btn opacity-0">🗑</button></div></div>
-                    <div class="external-event bg-danger d-flex justify-content-between"><div>Dinner</div><div><button class= "btn opacity-0">🗑</button></div></div>
+                    <div class="external-event bg-gray d-flex justify-content-between"><div>Wake up</div></div>
+                    <div class="external-event bg-success d-flex justify-content-between"><div>Luch</div></div>
+                    <div class="external-event bg-warning d-flex justify-content-between"><div>Go home</div></div>
+                    <div class="external-event bg-info d-flex justify-content-between"><div>Travel time</div></div>
+                    <div class="external-event bg-primary d-flex justify-content-between"><div>Go outside</div></div>
+                    <div class="external-event bg-danger d-flex justify-content-between"><div>Dinner</div></div>
 
                     <div class="checkbox">
                       <label for="drop-remove">
@@ -88,6 +88,7 @@
 
                     </ul>
                   </div>
+                  
                   <!-- /btn-group -->
                   <div class="input-group">
                     <input id="new-event" type="text" class="form-control" placeholder="Event Title">
@@ -98,6 +99,12 @@
                     <!-- /btn-group -->
                   </div>
                   <!-- /input-group -->
+                </div>
+                
+              </div>
+              <div class="card text-white bg-danger mb-3">
+                <div class="card-header">
+                  <h3 class="card-title" >Drag here to delete</h3>
                 </div>
               </div>
             </div>
@@ -188,23 +195,19 @@
       var containerEl = document.getElementById('external-events');
       var checkbox = document.getElementById('drop-remove');
       var calendarEl = document.getElementById('calendar');
-
+      
+      events    : [
+          {
+            title          : 'Click for Google',
+            start          : new Date(y, m, 28),
+            end            : new Date(y, m, 29),
+            url            : 'https://www.google.com/',
+            backgroundColor: '#3c8dbc', //Primary (light-blue)
+            borderColor    : '#3c8dbc' //Primary (light-blue)
+          }
+        ]
       // initialize the external events
       // -----------------------------------------------------------------
-
-      new Draggable(containerEl, {
-        itemSelector: '.external-event',
-        eventData: function(eventEl) {
-          console.log(eventEl);
-          return {
-            title: eventEl.innerText,
-            backgroundColor: window.getComputedStyle( eventEl ,null).getPropertyValue('background-color'),
-            borderColor: window.getComputedStyle( eventEl ,null).getPropertyValue('background-color'),
-            textColor: window.getComputedStyle( eventEl ,null).getPropertyValue('color'),
-          };
-        }
-      });
-
       var calendar = new Calendar(calendarEl, {
         plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid' ],
         header    : {
@@ -214,26 +217,34 @@
         },
         'themeSystem': 'bootstrap',
         //Random default events
-        events    : [
-          {
-            title          : 'Click for Google',
-            start          : new Date(y, m, 28),
-            end            : new Date(y, m, 29),
-            url            : 'https://www.google.com/',
-            backgroundColor: '#3c8dbc', //Primary (light-blue)
-            borderColor    : '#3c8dbc' //Primary (light-blue)
-          }
-        ],
+        
         editable  : true,
         droppable : true, // this allows things to be dropped onto the calendar !!!
         drop      : function(info) {
           // is the "remove after drop" checkbox checked?
+          console.log(info);
           if (checkbox.checked) {
             // if so, remove the element from the "Draggable Events" list
             info.draggedEl.parentNode.removeChild(info.draggedEl);
           }
         }
       });
+
+      new Draggable(containerEl, {
+        itemSelector: '.external-event',
+        eventData: function(eventEl) {
+          console.log(Calendar);
+          return {
+            title: eventEl.innerText,
+            backgroundColor: window.getComputedStyle( eventEl ,null).getPropertyValue('background-color'),
+            borderColor: window.getComputedStyle( eventEl ,null).getPropertyValue('background-color'),
+            textColor: window.getComputedStyle( eventEl ,null).getPropertyValue('color'),
+          };
+        }
+        
+      });
+
+
 
       calendar.render();
       // $('#calendar').fullCalendar()
@@ -249,6 +260,7 @@
         $('#add-new-event').css({
           'background-color': currColor,
           'border-color'    : currColor
+          
         })
       })
       $('#add-new-event').click(function (e) {
