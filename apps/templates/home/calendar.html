@@ -116,11 +116,11 @@
                 <!-- THE CALENDAR -->
                 <div id="calendar">
                 </div>
-              </div>
-              <div>
-              <form method="POST" id="guardar">
-                <input type="submit" value="Enviar este formulario" />
-              </form>
+                <form method="POST">
+                  <input style="display:none" id="eventos" type="text" name="dataEventos"/>
+                  <button id="guardar" type="submit">Guardar</button>
+                  {% csrf_token %}
+                </form>
               </div>
               <!-- /.card-body -->
             </div>
@@ -255,8 +255,21 @@
         }
       });
 
+      $('#guardar').click(function (e) {
+        var events = calendar.getEvents();
+        var dataToStore = [];
+        let dataToStore2 = [];
+
+        for (let i = 0; i < events.length; i++){
+          dataToStore2[i] = {"title": events[i].title, "start": events[i].start, "end": events[i].end, "backgroundColor": events[i].backgroundColor, "borderColor": events[i].borderColor};                    
+          dataToStore2[i] = JSON.stringify(dataToStore2[i]);
+        }
+
+        console.log(dataToStore2)
+        document.getElementById('eventos').value=dataToStore2;
+      })
+
       calendar.render();
-      // $('#calendar').fullCalendar()
 
       /* ADDING EVENTS */
       var currColor = '#3c8dbc' //Red by default
