@@ -195,17 +195,7 @@
       var containerEl = document.getElementById('external-events');
       var checkbox = document.getElementById('drop-remove');
       var calendarEl = document.getElementById('calendar');
-      
-      events    : [
-          {
-            title          : 'Click for Google',
-            start          : new Date(y, m, 28),
-            end            : new Date(y, m, 29),
-            url            : 'https://www.google.com/',
-            backgroundColor: '#3c8dbc', //Primary (light-blue)
-            borderColor    : '#3c8dbc' //Primary (light-blue)
-          }
-        ]
+
       // initialize the external events
       // -----------------------------------------------------------------
       var calendar = new Calendar(calendarEl, {
@@ -217,7 +207,16 @@
         },
         'themeSystem': 'bootstrap',
         //Random default events
-        
+        events    : [
+          {
+            title          : 'Click for Google',
+            start          : new Date(y, m, 28),
+            end            : new Date(y, m, 29),
+            url            : 'https://www.google.com/',
+            backgroundColor: '#3c8dbc', //Primary (light-blue)
+            borderColor    : '#3c8dbc' //Primary (light-blue)
+          }
+        ],
         editable  : true,
         droppable : true, // this allows things to be dropped onto the calendar !!!
         drop      : function(info) {
@@ -229,7 +228,6 @@
           }
         }
       });
-
       new Draggable(containerEl, {
         itemSelector: '.external-event',
         eventData: function(eventEl) {
