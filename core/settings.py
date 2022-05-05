@@ -71,7 +71,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'monkoo_users',
+        'NAME': 'monkoodb',
         'USER': 'postgres',
         'PASSWORD': 'canela400',
         'HOST': 'localhost',

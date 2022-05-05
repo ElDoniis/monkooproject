@@ -5,7 +5,6 @@ Copyright (c) 2019 - present AppSeed.us
 
 from django.contrib import admin
 from django.urls import path, include  # add this
-from monkoo_calendar.views import send_events
 
 urlpatterns = [
     path('admin/', admin.site.urls),          # Django admin route
