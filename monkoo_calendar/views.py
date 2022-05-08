@@ -1,4 +1,6 @@
+from multiprocessing import Event
 from operator import le
+from pydoc import Helper
 from django.http import QueryDict
 from django.shortcuts import render
 from matplotlib.pyplot import title
@@ -35,18 +37,19 @@ def toListValues(eventToList):
     return values
 
 def send_events(request): 
+
     if request.method == 'POST':
         formaEvento = request.POST
         formaEvento = QueryDict.dict(formaEvento)
 
         # Los eventos cuando se traen quedan en un unico string por lo que hay que separar el string por eventos
-        # Convertir data traida en diccionario - sanear data
+        # Convertir data traida en diccionario - sanear data -
         x = formaEvento['dataEventos'].count('}')
         izq = 0
-         #calendarEventsKeys = ['title', 'start', 'end', 'backgroundColor', 'borderColor']
         calendarEventsValues = None
+        memory = Events.objects.all()
+        Events.objects.all().delete()
 
-        # ------------------- BUGG -----------------
         for i in range(x):
             der = formaEvento['dataEventos'].find('}', izq)
             singleEvent = formaEvento['dataEventos'][izq:der+1]
@@ -56,7 +59,7 @@ def send_events(request):
             event.start = calendarEventsValues[1]
             event.end = calendarEventsValues[2]
             event.backgroundColor = calendarEventsValues[3]
-            event.borderColor = calendarEventsValues[4]
+            event.borderColor = calendarEventsValues[4]            
             event.save()
             izq = der+2
 
@@ -66,5 +69,4 @@ def send_events(request):
     all_events = list(first_convertion)
 
     context = {'data': json.dumps (all_events)}
-
     return render(request, 'home/calendar.html', context)
