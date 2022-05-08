@@ -1,9 +1,5 @@
-from multiprocessing import Event
-from operator import le
-from pydoc import Helper
 from django.http import QueryDict
 from django.shortcuts import render
-from matplotlib.pyplot import title
 from monkoo_calendar.models import Events
 import json
 
