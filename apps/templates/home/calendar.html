@@ -205,13 +205,10 @@
       // initialize the external events
       // -----------------------------------------------------------------
 
-
-      // AQUIIII
-      // data es la variable donde se guardan los eventos que se traen de la db
-      
-      var data = JSON.parse ("{{data | escapejs}}");
-
       var calendarEl = document.getElementById('calendar');
+
+      // Variable encargada de recibir los eventos del backend
+      var data = JSON.parse ("{{data | escapejs}}");
 
       var calendar = new FullCalendar.Calendar(calendarEl, {
             plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid' ],
@@ -255,9 +252,10 @@
         }
       });
 
+       // Funcion encargada de llevar los datos del frontend al backend
+
       $('#guardar').click(function (e) {
         var events = calendar.getEvents();
-        var dataToStore = [];
         let dataToStore2 = [];
 
         for (let i = 0; i < events.length; i++){
