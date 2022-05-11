@@ -1,3 +1,17 @@
+.titulo-carrusel {
+  background-color: rgba(0, 0, 0, 0.7);
+  margin: auto;
+  width: 70px;
+  border-radius: 10px 0px 10px 0px;
+}
+
+.texto-carrusel {
+  background-color: rgba(0, 0, 0, 0.7);
+  margin: auto;
+  width: 360px;
+  border-radius: 10px 0px 10px 0px;
+}
+
 /*!
  *   AdminLTE v3.1.0-pre
  *   Author: Colorlib
@@ -4554,6 +4568,7 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   .popover-header:empty {
     display: none; }
 
+
 .popover-body {
   padding: 0.5rem 0.75rem;
   color: #212529; }
@@ -4565,10 +4580,14 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   touch-action: pan-y; }
 
 .carousel-inner {
+  border-radius: 9px;
+  padding: 0;
+  margin: 0px;
   position: relative;
   width: 100%;
   overflow: hidden; }
-  .carousel-inner::after {
+
+.carousel-inner::after {
     display: block;
     clear: both;
     content: ""; }
@@ -4622,6 +4641,9 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
 
 .carousel-control-prev,
 .carousel-control-next {
+  background-color: rgba(176, 176, 176, 0.5);
+  margin-left: 0px;
+  margin-right: 0px;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -4629,11 +4651,11 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 15%;
-  color: #fff;
+  width: 3%;
+  color: black;
   text-align: center;
-  opacity: 0.5;
-  transition: opacity 0.15s ease; }
+  opacity: 1;
+  transition: opacity 0.15s ease;}
   @media (prefers-reduced-motion: reduce) {
     .carousel-control-prev,
     .carousel-control-next {
@@ -4641,10 +4663,11 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   .carousel-control-prev:hover, .carousel-control-prev:focus,
   .carousel-control-next:hover,
   .carousel-control-next:focus {
-    color: #fff;
+    color: black;
     text-decoration: none;
     outline: 0;
-    opacity: 0.9; }
+    opacity: 1;
+    }
 
 .carousel-control-prev {
   left: 0; }
@@ -4660,10 +4683,10 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   background: 50% / 100% 100% no-repeat; }
 
 .carousel-control-prev-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E"); }
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E"); }
 
 .carousel-control-next-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E"); }
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E"); }
 
 .carousel-indicators {
   position: absolute;
