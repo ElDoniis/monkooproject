@@ -29,7 +29,6 @@ def toListValues(eventToList):
     value = value.strip('"')
     values.append(value)
     values.append(value)
-
     return values
 
 def send_events(request): 
@@ -63,6 +62,14 @@ def send_events(request):
     query_set = Events.objects.all()
     first_convertion = query_set.values()
     all_events = list(first_convertion)
-
     context = {'data': json.dumps (all_events)}
     return render(request, 'home/calendar.html', context)
+
+def recomendacionParis(request):
+    return render(request, 'home/recomendacionParis.html')
+
+def recomendacionJapon(request):
+    return render(request, 'home/recomendacionJapon.html')
+
+def recomendacionVietnam(request):
+    return render(request, 'home/recomendacionVietnam.html')

@@ -5,7 +5,7 @@ from django.db import models
 
 class Events(models.Model):
 
-    event_id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255, null=True, blank=True)
     start = models.CharField(max_length=255, null=True, blank=True)
     end = models.CharField(max_length=255, null=True, blank=True)

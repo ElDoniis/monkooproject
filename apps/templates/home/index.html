@@ -8,6 +8,8 @@
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}
 
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/static/assets/css/adminlte.css">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -20,14 +22,14 @@
   <link rel="stylesheet" href="/static/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->
   <link rel="stylesheet" href="/static/assets/plugins/jqvmap/jqvmap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="/static/assets/css/adminlte.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="/static/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="/static/assets/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="/static/assets/plugins/summernote/summernote-bs4.min.css">
+
+  <link rel="stylesheet" href="/static/assets/css/carrusel.css">
 
 {% endblock stylesheets %}
 
@@ -48,24 +50,19 @@
     <!-- /.content-header -->
     
     <!-- BEGIN CAROUSEL -->
- 
+    <h1 style="color: #3B9AFF;">We have some recomendations for you!</h1>
 
-
-
-      
-       <h1 style="color: #3B9AFF;">We have some recomendations for you!</h1>
-
-<div class="carousel__container" style="margin-top: 100px;">
-  <div class="carousel__item" >
-    <img src="/static/assets/img/japan2.jpg" class="carousel__image">
-  </div>
-  <div class="carousel__item">
-    <img src="https://s1.1zoom.me/b5049/391/Vietnam_Scenery_Mountains_Rivers_Fields_Cao_Bang_537251_1920x1080.jpg" class="carousel__image">
-  </div>
-  <div class="carousel__item " >
-    <img src="https://external-preview.redd.it/ruocL6fqaln_BKOHjLhEo9D8n4fRbNru1ng3p2GKxoA.jpg?auto=webp&s=369967a7be1a1d7745af9de0f8c35648f4503a03" class="carousel__image">
-  </div>
-</div>
+    <div class="carousel__container" style="margin-top: 100px;">
+      <div class="carousel__item" >
+        <img src="/static/assets/img/japan2.jpg" class="carousel__image">
+      </div>
+      <div class="carousel__item">
+        <img src="https://s1.1zoom.me/b5049/391/Vietnam_Scenery_Mountains_Rivers_Fields_Cao_Bang_537251_1920x1080.jpg" class="carousel__image">
+      </div>
+      <div class="carousel__item " >
+        <img src="https://external-preview.redd.it/ruocL6fqaln_BKOHjLhEo9D8n4fRbNru1ng3p2GKxoA.jpg?auto=webp&s=369967a7be1a1d7745af9de0f8c35648f4503a03" class="carousel__image">
+      </div>
+    </div>
  
     <!-- END CAROUSEL -->
     <!-- PUT UR CODE HERE -->
