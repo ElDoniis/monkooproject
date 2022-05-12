@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="/static/assets/plugins/fullcalendar-bootstrap/main.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/static/assets/css/adminlte.min.css">
+  
 
 {% endblock stylesheets %}
 
@@ -31,7 +32,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Calendar</h1>
+            <h1 id="123"> Calendar </h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -50,12 +51,12 @@
                 <div class="card-body">
                   <!-- the events -->
                   <div id="external-events">
-                    <div class="external-event bg-gray d-flex justify-content-between"><div>Wake up</div><div><button class= "btn opacity-0">🗑</button></div></div>
-                    <div class="external-event bg-success d-flex justify-content-between"><div>Luch</div><div><button class= "btn opacity-0">🗑</button></div></div>
-                    <div class="external-event bg-warning d-flex justify-content-between"><div>Go home</div><div><button class= "btn opacity-0">🗑</button></div></div>
-                    <div class="external-event bg-info d-flex justify-content-between"><div>Travel time</div><div><button class= "btn opacity-0">🗑</button></div></div>
-                    <div class="external-event bg-primary d-flex justify-content-between"><div>Go outside</div><div><button class= "btn opacity-0">🗑</button></div></div>
-                    <div class="external-event bg-danger d-flex justify-content-between"><div>Dinner</div><div><button class= "btn opacity-0">🗑</button></div></div>
+                    <div class="external-event bg-gray d-flex justify-content-between"><div>Wake up</div></div>
+                    <div class="external-event bg-success d-flex justify-content-between"><div>Luch</div></div>
+                    <div class="external-event bg-warning d-flex justify-content-between"><div>Go home</div></div>
+                    <div class="external-event bg-info d-flex justify-content-between"><div>Travel time</div></div>
+                    <div class="external-event bg-primary d-flex justify-content-between"><div>Go outside</div></div>
+                    <div class="external-event bg-danger d-flex justify-content-between"><div>Dinner</div></div>
 
                     <div class="checkbox">
                       <label for="drop-remove">
@@ -88,6 +89,7 @@
 
                     </ul>
                   </div>
+                  
                   <!-- /btn-group -->
                   <div class="input-group">
                     <input id="new-event" type="text" class="form-control" placeholder="Event Title">
@@ -99,6 +101,19 @@
                   </div>
                   <!-- /input-group -->
                 </div>
+                
+              </div>
+              <div class="card text-white bg-danger mb-3">
+                <div class="card-header">
+                  <h3 class="card-title" >Drag here to delete</h3>
+                </div>
+              </div>
+              <div>
+                <form method="POST">
+                  <input style="display:none" id="eventos" type="text" name="dataEventos"/>
+                  <button id="guardar" type="submit" class="btn btn-info btn-sm btn-block active">Guardar <i class="fa fa-save"></i></button>
+                  {% csrf_token %}
+                </form>
               </div>
             </div>
           </div>
@@ -107,7 +122,8 @@
             <div class="card card-primary">
               <div class="card-body p-0">
                 <!-- THE CALENDAR -->
-                <div id="calendar"></div>
+                <div id="calendar">
+                </div>
               </div>
               <!-- /.card-body -->
             </div>
@@ -147,7 +163,8 @@
   <!-- Page specific script -->
   <script>
     $(function () {
-
+      
+      console.log
       /* initialize the external events
       -----------------------------------------------------------------*/
       function ini_events(ele) {
@@ -176,7 +193,7 @@
 
       /* initialize the calendar
       -----------------------------------------------------------------*/
-      //Date for the calendar events (dummy data)
+      // Date for the calendar events (dummy data)
       var date = new Date()
       var d    = date.getDate(),
           m    = date.getMonth(),
@@ -187,15 +204,48 @@
 
       var containerEl = document.getElementById('external-events');
       var checkbox = document.getElementById('drop-remove');
-      var calendarEl = document.getElementById('calendar');
 
       // initialize the external events
       // -----------------------------------------------------------------
+
+      var calendarEl = document.getElementById('calendar');
+
+      // Variable encargada de recibir los eventos del backend
+      var data = JSON.parse ("{{data | escapejs}}");
+
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+            plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid' ],
+            header    : {
+            left  : 'prev,next today',
+            center: 'title',
+            right : 'dayGridMonth,timeGridWeek,timeGridDay'
+          },
+          'themeSystem': 'bootstrap',
+          
+        events: data,
+    
+        editable  : true,
+        droppable : true, // this allows things to be dropped onto the calendar !!!
+        
+        drop      : function(info) {
+          console.log(info);
+          // is the "remove after drop" checkbox checked?
+
+
+          if (checkbox.checked) {
+            // if so, remove the element from the "Draggable Events" list
+            info.draggedEl.parentNode.removeChild(info.draggedEl);
+          }
+
+          
+        }
+      });
 
       new Draggable(containerEl, {
         itemSelector: '.external-event',
         eventData: function(eventEl) {
           console.log(eventEl);
+
           return {
             title: eventEl.innerText,
             backgroundColor: window.getComputedStyle( eventEl ,null).getPropertyValue('background-color'),
@@ -205,38 +255,22 @@
         }
       });
 
-      var calendar = new Calendar(calendarEl, {
-        plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid' ],
-        header    : {
-          left  : 'prev,next today',
-          center: 'title',
-          right : 'dayGridMonth,timeGridWeek,timeGridDay'
-        },
-        'themeSystem': 'bootstrap',
-        //Random default events
-        events    : [
-          {
-            title          : 'Click for Google',
-            start          : new Date(y, m, 28),
-            end            : new Date(y, m, 29),
-            url            : 'https://www.google.com/',
-            backgroundColor: '#3c8dbc', //Primary (light-blue)
-            borderColor    : '#3c8dbc' //Primary (light-blue)
-          }
-        ],
-        editable  : true,
-        droppable : true, // this allows things to be dropped onto the calendar !!!
-        drop      : function(info) {
-          // is the "remove after drop" checkbox checked?
-          if (checkbox.checked) {
-            // if so, remove the element from the "Draggable Events" list
-            info.draggedEl.parentNode.removeChild(info.draggedEl);
-          }
+       // Funcion encargada de llevar los datos del frontend al backend
+
+      $('#guardar').click(function (e) {
+        var events = calendar.getEvents();
+        let dataToStore2 = [];
+
+        for (let i = 0; i < events.length; i++){
+          dataToStore2[i] = {"title": events[i].title, "start": events[i].start, "end": events[i].end, "backgroundColor": events[i].backgroundColor, "borderColor": events[i].borderColor};                    
+          dataToStore2[i] = JSON.stringify(dataToStore2[i]);
         }
-      });
+
+        console.log(dataToStore2)
+        document.getElementById('eventos').value=dataToStore2;
+      })
 
       calendar.render();
-      // $('#calendar').fullCalendar()
 
       /* ADDING EVENTS */
       var currColor = '#3c8dbc' //Red by default
@@ -249,6 +283,7 @@
         $('#add-new-event').css({
           'background-color': currColor,
           'border-color'    : currColor
+          
         })
       })
       $('#add-new-event').click(function (e) {

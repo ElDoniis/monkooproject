@@ -1,15 +1,85 @@
-/*!
- *   AdminLTE v3.1.0-pre
- *   Author: Colorlib
- *   Website: AdminLTE.io <https://adminlte.io>
- *   License: Open source - MIT <https://opensource.org/licenses/MIT>
- */
-/*!
- * Bootstrap v4.6.0 (https://getbootstrap.com/)
- * Copyright 2011-2021 The Bootstrap Authors
- * Copyright 2011-2021 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
+body{
+  background-color: #282e32;
+}
+
+h1{
+  color: #fff;
+  font-family: sans-serif;
+  text-align: center;
+  font-weight: normal;
+}
+
+@keyframes carouselAnim{
+  0%{
+    transform: translateX(100%) rotatey(0) scale(1.2, 1.2);
+    transform-origin: center center;
+    z-index: 10;
+  }
+  27%{
+    transform: translateX(100%) rotatey(0) scale(1.2, 1.2);
+    transform-origin: center center;
+    z-index: 10;
+  }
+  33.33333%{
+    transform: translateX(0) translateY(0) rotatey(10deg) scale(0.8,1);
+    transform-origin: left center;
+    z-index: 5;
+  }
+  60%{
+    transform: translateX(0) translateY(0) rotatey(10deg) scale(0.8,1);
+    transform-origin: left center;
+    z-index: 5;
+  }
+  66.666666%{
+    transform: translateX(200%) translateY(0) rotatey(-10deg) scale(0.8,1);
+    transform-origin: right center;
+    z-index: 5;
+  }
+  93%{
+    transform: translateX(200%) translateY(0) rotatey(-10deg) scale(0.8,1);
+    transform-origin: right center;
+    z-index: 5;
+  }
+  100%{
+    transform: translateX(100%) rotatey(0) scale(1.2, 1.2);
+    transform-origin: center center;
+    z-index: 10;
+  }
+}
+
+.carousel__container{
+  width: 100%;
+  max-width: 960px;
+  perspective: 300px;
+  perspective-origin: 50% 60%;
+  min-height: 14em;
+  margin: 3em auto;
+}
+
+.carousel__item{
+  position: absolute;
+  width: 33%; 
+  padding-bottom: 19%;
+  animation-name: carouselAnim;
+  /* transform: translateX(0) rotatey(50deg); */
+  transform-origin: left center;
+  animation-duration: 12s;
+  animation-iteration-count: infinite;
+}
+
+.carousel__item:first-child{
+  animation-delay: -4s;
+}
+.carousel__item:last-child{
+  animation-delay: -8s;
+}
+
+.carousel__image{
+  position: flex;
+  width: 100%;
+  border-radius: 20px;
+}
+
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -4554,6 +4624,7 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   .popover-header:empty {
     display: none; }
 
+
 .popover-body {
   padding: 0.5rem 0.75rem;
   color: #212529; }
@@ -4565,10 +4636,14 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   touch-action: pan-y; }
 
 .carousel-inner {
+  border-radius: 9px;
+  padding: 0;
+  margin: 0px;
   position: relative;
   width: 100%;
   overflow: hidden; }
-  .carousel-inner::after {
+
+.carousel-inner::after {
     display: block;
     clear: both;
     content: ""; }
@@ -4622,6 +4697,9 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
 
 .carousel-control-prev,
 .carousel-control-next {
+  background-color: rgba(176, 176, 176, 0.5);
+  margin-left: 0px;
+  margin-right: 0px;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -4629,11 +4707,11 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 15%;
-  color: #fff;
+  width: 3%;
+  color: black;
   text-align: center;
-  opacity: 0.5;
-  transition: opacity 0.15s ease; }
+  opacity: 1;
+  transition: opacity 0.15s ease;}
   @media (prefers-reduced-motion: reduce) {
     .carousel-control-prev,
     .carousel-control-next {
@@ -4641,10 +4719,11 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   .carousel-control-prev:hover, .carousel-control-prev:focus,
   .carousel-control-next:hover,
   .carousel-control-next:focus {
-    color: #fff;
+    color: black;
     text-decoration: none;
     outline: 0;
-    opacity: 0.9; }
+    opacity: 1;
+    }
 
 .carousel-control-prev {
   left: 0; }
@@ -4660,10 +4739,10 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   background: 50% / 100% 100% no-repeat; }
 
 .carousel-control-prev-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E"); }
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E"); }
 
 .carousel-control-next-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E"); }
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E"); }
 
 .carousel-indicators {
   position: absolute;
