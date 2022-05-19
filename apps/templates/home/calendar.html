@@ -109,7 +109,7 @@
                 </div>
               </div>
               <div>
-                <form method="POST">
+                <form id="guardar1" method="POST">
                   <input style="display:none" id="eventos" type="text" name="dataEventos"/>
                   <button id="guardar" type="submit" class="btn btn-info btn-sm btn-block active">Guardar <i class="fa fa-save"></i></button>
                   {% csrf_token %}
@@ -244,7 +244,7 @@
           if (confirm("¿Are you sure you want to delete this event? YOU CANNOT UNDO THIS ACTION")){
             var eventToDelete = calendar.getEventById(event["event"]["id"]);
             eventToDelete.remove()
-            alert("RECUERDA GUARDAR LOS CAMBIOS")
+            alert("REMEMBER TO SAVE CHANGES")
           }
         }
       });

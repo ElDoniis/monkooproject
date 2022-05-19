@@ -31,8 +31,7 @@ def toListValues(eventToList):
     values.append(value)
     return values
 
-def send_events(request): 
-
+def send_events(request):
     if request.method == 'POST':
         formaEvento = request.POST
         formaEvento = QueryDict.dict(formaEvento)
@@ -43,23 +42,34 @@ def send_events(request):
         izq = 0
         calendarEventsValues = None
         memory = Events.objects.all()
-        Events.objects.all().delete()
+        memorySize = Events.objects.count()
 
         for i in range(x):
             der = formaEvento['dataEventos'].find('}', izq)
             singleEvent = formaEvento['dataEventos'][izq:der+1]
             calendarEventsValues = toListValues(singleEvent)
             event = Events()
-            event.title = calendarEventsValues[0]
-            event.start = calendarEventsValues[1]
-            event.end = calendarEventsValues[2]
-            event.backgroundColor = calendarEventsValues[3]
-            event.borderColor = calendarEventsValues[4]            
-            event.save()
+            # Si el evento ya existe no lo guarda
+            if Events.objects.filter(userId=request.user.id, title=calendarEventsValues[0], start=calendarEventsValues[1],
+            end=calendarEventsValues[2], backgroundColor=calendarEventsValues[3], borderColor=calendarEventsValues[4]).exists():
+                pass
+            else:
+                print('hola')
+                event.userId = request.user.id
+                event.title = calendarEventsValues[0]
+                event.start = calendarEventsValues[1]
+                event.end = calendarEventsValues[2]
+                event.backgroundColor = calendarEventsValues[3]
+                event.borderColor = calendarEventsValues[4]            
+                event.save()
             izq = der+2
 
+    if request.user.is_authenticated:
+        print(f"Username --> {request.user.username}")
+        print(f"Username --> {request.user.id}")
+
     # Traer eventos que se encuentrar en la database
-    query_set = Events.objects.all()
+    query_set = Events.objects.filter(userId = request.user.id)
     first_convertion = query_set.values()
     all_events = list(first_convertion)
     context = {'data': json.dumps (all_events)}
