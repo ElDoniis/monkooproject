@@ -32,7 +32,23 @@ def toListValues(eventToList):
     return values
 
 def send_events(request):
-    if request.method == 'POST':
+    # Si se clickea el boton eliminar
+    if request.method == 'POST' and 'eliminar' in request.POST:
+        formaEvento = request.POST
+        formaEvento = QueryDict.dict(formaEvento)
+        x = formaEvento['dataDelete'].count('}')
+        izq = 0
+        calendarEventsValues = None
+        for i in range(x):
+            der = formaEvento['dataDelete'].find('}', izq)
+            singleEvent = formaEvento['dataDelete'][izq:der+1]
+            calendarEventsValues = toListValues(singleEvent)
+            #Eliminar aqui
+            Events.objects.filter(userId=request.user.id, title=calendarEventsValues[0], start=calendarEventsValues[1],
+            end=calendarEventsValues[2], backgroundColor=calendarEventsValues[3], borderColor=calendarEventsValues[4]).delete()
+            izq = der+2
+    # Si se clickea el boton guardar
+    if request.method == 'POST' and 'guardar' in request.POST:
         formaEvento = request.POST
         formaEvento = QueryDict.dict(formaEvento)
 
@@ -41,8 +57,6 @@ def send_events(request):
         x = formaEvento['dataEventos'].count('}')
         izq = 0
         calendarEventsValues = None
-        memory = Events.objects.all()
-        memorySize = Events.objects.count()
 
         for i in range(x):
             der = formaEvento['dataEventos'].find('}', izq)
@@ -54,7 +68,6 @@ def send_events(request):
             end=calendarEventsValues[2], backgroundColor=calendarEventsValues[3], borderColor=calendarEventsValues[4]).exists():
                 pass
             else:
-                print('hola')
                 event.userId = request.user.id
                 event.title = calendarEventsValues[0]
                 event.start = calendarEventsValues[1]
@@ -74,6 +87,10 @@ def send_events(request):
     all_events = list(first_convertion)
     context = {'data': json.dumps (all_events)}
     return render(request, 'home/calendar.html', context)
+
+def loggedUser(request):
+    user =  request.user.username
+    return render(request, 'home/includes/navigation.html', {'user': user})
 
 def recomendacionParis(request):
     return render(request, 'home/recomendacionParis.html')

@@ -105,13 +105,19 @@
               </div>
               <div class="card text-white bg-danger mb-3">
                 <div class="card-header">
-                  <h3 class="card-title" >To delete an event - CLICK IT -</h3>
+                  <h3 class="card-title" >To delete an event click it an then click on delete button</h3>
                 </div>
               </div>
               <div>
-                <form id="guardar1" method="POST">
+                <form method="POST">
                   <input style="display:none" id="eventos" type="text" name="dataEventos"/>
-                  <button id="guardar" type="submit" class="btn btn-info btn-sm btn-block active">Guardar <i class="fa fa-save"></i></button>
+                  <button name="guardar" id="guardar" type="submit" class="btn btn-info btn-sm btn-block active">Save <i class="fa fa-save"></i></button>
+                  {% csrf_token %}
+                </form>
+                <form method="POST">
+                  <input style="display:none" id="eventsDelete" type="text" name="dataDelete"/>
+                  <br/>
+                  <button name="eliminar" id="eliminar" type="submit" class="btn btn-danger btn-sm btn-block active">DELETE <i class="fa-solid fa-trash-can"></i></button>
                   {% csrf_token %}
                 </form>
               </div>
@@ -163,7 +169,7 @@
   <!-- Page specific script -->
   <script>
     $(function () {
-      
+      let dataToDelete = [];
       /* initialize the external events
       -----------------------------------------------------------------*/
       function ini_events(ele) {
@@ -237,14 +243,13 @@
 
           
         },
-        
         eventClick: function(event){
           var idEvent = event["event"];
           var eventToDelete = calendar.getEventById(event["event"]["id"]);
-          if (confirm("¿Are you sure you want to delete this event? YOU CANNOT UNDO THIS ACTION")){
+          if (confirm("¿Are you sure you want to delete this event?")){
             var eventToDelete = calendar.getEventById(event["event"]["id"]);
-            eventToDelete.remove()
-            alert("REMEMBER TO SAVE CHANGES")
+            eventToDelete.remove();
+            dataToDelete.push(JSON.stringify({"title": eventToDelete.title, "start": eventToDelete.start, "end": eventToDelete.end, "backgroundColor": eventToDelete.backgroundColor, "borderColor": eventToDelete.borderColor})); 
           }
         }
       });
@@ -261,7 +266,9 @@
           };
         }
       });
-
+      $('#eliminar').click(function (e){
+        document.getElementById('eventsDelete').value=dataToDelete;
+      })
       // Funcion encargada de llevar los datos del frontend al backend
       $('#guardar').click(function (e) {
         var events = calendar.getEvents();

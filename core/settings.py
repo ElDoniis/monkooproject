@@ -70,11 +70,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'monkoodb',
-        'USER': 'postgres',
-        'PASSWORD': 'canela400',
-        'HOST': 'localhost',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd1i4pp4qr2t5ch',
+        'USER': 'fblmoojxhtnjxw',
+        'PASSWORD': '0d3c073f2d69717bfb9392fdd203b79ecf165294f3fc1e1b7eb13eaf708919f2',
+        'HOST': 'ec2-34-192-210-139.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
